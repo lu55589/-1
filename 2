@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>给我最爱的你 ❤️</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #ffe6f0, #ffcce0);
+    font-family: "微软雅黑", sans-serif;
+  }
+
+  .heart {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: fall 5s linear infinite;
+    opacity: 0.8;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50%;
+  }
+
+  .heart::before {
+    top: -7.5px;
+    left: 0;
+  }
+
+  .heart::after {
+    left: -7.5px;
+    top: 0;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-10px) rotate(45deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  .popup {
+    position: fixed;
+    padding: 12px 20px;
+    background: #fff0f5;
+    border: 2px solid pink;
+    border-radius: 12px;
+    color: #ff4d88;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    animation: fade 6s ease-in-out forwards;
+  }
+
+  @keyframes fade {
+    0% { opacity: 0; transform: scale(0.5); }
+    20% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(0.5); }
+  }
+</style>
+</head>
+<body>
+
+<script>
+  // 🌸 爱心飘落
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+    heart.style.background = "rgb(" +
+      (255 - Math.random() * 50) + "," +
+      (100 + Math.random() * 80) + "," +
+      (150 + Math.random() * 100) + ")";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 150);
+
+  // 💌 甜蜜话语
+  const messages = [
+    "遇见你是我最美的意外 💕",
+    "你笑的时候，整个世界都亮了 ✨",
+    "我想和你一起看星星、数月亮 🌙",
+    "有你在的日子，连风都是甜的 🍬",
+    "我的心跳因为你而加速 ❤️",
+    "世界上最幸福的事，就是喜欢的人也喜欢我 💞",
+  ];
+
+  function showPopup() {
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const div = document.createElement("div");
+    div.className = "popup";
+    div.textContent = msg;
+    div.style.top = Math.random() * 70 + "%";
+    div.style.left = Math.random() * 70 + "%";
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 6000);
+  }
+  setInterval(showPopup, 4000);
+</script>
+
+</body>
+</html>
