@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<title>送给最爱的你 💖</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffe6f2, #ffd6e8);
+  font-family: '微软雅黑';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.love-message {
+  position: absolute;
+  background-color: rgba(255, 182, 193, 0.9);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(255,105,180,0.4);
+  font-size: 16px;
+  animation: floatUp 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(-20px) scale(1.05); opacity: 0.9; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.heart {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: pink;
+  transform: rotate(45deg);
+  animation: fall 5s linear infinite;
+  opacity: 0.8;
+}
+
+.heart::before, .heart::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: pink;
+  border-radius: 50%;
+}
+
+.heart::before { top: -5px; left: 0; }
+.heart::after { left: 5px; top: 0; }
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.start-btn {
+  background-color: #ff99cc;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+  transition: 0.3s;
+}
+
+.start-btn:hover {
+  background-color: #ff80bf;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+<body>
+<button class="start-btn" id="startBtn">点我一下💖</button>
+
+<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2023/03/27/audio_555b07dbb3.mp3?filename=romantic-piano-143038.mp3" loop></audio>
+
+<script>
+// 🌷 这里是你的情话内容，可以随意修改、增删 🌷
+const messages = [
+  "你是我心里的甜💕",
+  "每次想到你就会笑☺️",
+  "和你在一起的每一天都很温柔🌸",
+  "世界因为你而变得可爱🌷",
+  "喜欢你，不需要理由💗",
+  "你笑的时候，连风都是甜的🍬",
+  "我永远都想陪你🌙",
+  "有你在的地方，就是心安💞",
+  "你出现的那一刻，世界亮了✨",
+  "有你的日子，连风都温柔💓",
+  "我想和你看日出，也想和你到白头🌅",
+  "遇见你，是最美好的意外🎀",
+  "想和你一起慢慢变老🍃",
+  "每一秒都想你💘",
+  "你是我所有梦里的主角💭",
+  "喜欢你，是我做过最甜的事🍯"
+];
+
+const startBtn = document.getElementById('startBtn');
+const bgm = document.getElementById('bgm');
+
+startBtn.addEventListener('click', () => {
+  startBtn.classList.add('hidden');
+  bgm.play();
+  startLoveEffect();
+});
+
+function startLoveEffect() {
+  setInterval(() => {
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    createLoveMessage(randomMsg);
+  }, 1000);
+
+  setInterval(createHeart, 200);
+}
+
+function createLoveMessage(text) {
+  const msg = document.createElement('div');
+  msg.className = 'love-message';
+  msg.innerText = text;
+
+  // 形成爱心形状的大致分布
+  const x = Math.random() * window.innerWidth;
+  const y = Math.pow((Math.abs(x - window.innerWidth/2)/window.innerWidth)*1.8, 2) * window.innerHeight/2 + Math.random()*100;
+
+  msg.style.left = x + 'px';
+  msg.style.top = y + 'px';
+  document.body.appendChild(msg);
+
+  setTimeout(() => msg.remove(), 8000);
+}
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (3 + Math.random() * 5) + 's';
+  heart.style.background = `hsl(${Math.random()*20+340},100%,80%)`;
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+</script>
+</body>
+</html>
